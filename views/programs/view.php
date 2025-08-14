@@ -1,6 +1,6 @@
 <?php
-include __DIR__ . '/../layouts/header.php';
-include __DIR__ . '/../layouts/navbar.php';
+include __DIR__ . '/../layouts/layouts/header.php';
+include __DIR__ . '/../layouts/layouts/navbar.php';
 
 // $program: associative array with program data passed by controller
 ?>
@@ -16,5 +16,5 @@ include __DIR__ . '/../layouts/navbar.php';
 <a href="list.php">Back to Programs List</a>
 
 <?php
-include __DIR__ . '/../layouts/footer.php';
+include __DIR__ . '/../layouts/layouts/footer.php';
 ?>

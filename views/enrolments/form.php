@@ -1,7 +1,6 @@
 <?php
-include __DIR__ . '/../layouts/header.php';
-include __DIR__ . '/../layouts/navbar.php';
-
+include __DIR__ . '/../layouts/layouts/header.php';
+include __DIR__ . '/../layouts/layouts/navbar.php';
 // $programs: list of programs (id, name) passed from controller
 // $message: optional success/error message
 
@@ -42,5 +41,5 @@ include __DIR__ . '/../layouts/navbar.php';
 </form>
 
 <?php
-include __DIR__ . '/../layouts/footer.php';
+include __DIR__ . '/../layouts/layouts/footer.php';
 ?>

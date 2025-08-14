@@ -1,7 +1,7 @@
 <?php
 // Include common layout parts
-include __DIR__ . '/../layouts/header.php';
-include __DIR__ . '/../layouts/navbar.php';
+include __DIR__ . '/../layouts/layouts/header.php';
+include __DIR__ . '/../layouts/layouts/navbar.php';
 
 // Show success message if set
 if (isset($message)) {
@@ -32,6 +32,6 @@ if (isset($message)) {
 </form>
 
 <?php
-include __DIR__ . '/../layouts/footer.php';
+include __DIR__ . '/../layouts/layouts/footer.php';
 ?>
 

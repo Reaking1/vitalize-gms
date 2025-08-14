@@ -1,6 +1,6 @@
 <?php
-include __DIR__ . '/../layouts/header.php';
-include __DIR__ . '/../layouts/navbar.php';
+include __DIR__ . '/../layouts/layouts/header.php';
+include __DIR__ . '/../layouts/layouts/navbar.php';
 
 // $gymnastProgress: array of progress notes passed from controller
 // Expected format: [
@@ -47,5 +47,5 @@ include __DIR__ . '/../layouts/navbar.php';
 <?php endif; ?>
 
 <?php
-include __DIR__ . '/../layouts/footer.php';
+include __DIR__ . '/../layouts/layouts/footer.php';
 ?>

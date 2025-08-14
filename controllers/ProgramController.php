@@ -8,6 +8,40 @@ class ProgramController {
         $this->pdo = $pdo;
     }
 
+    //get all programs
+    public function getPrograms() {
+    $stmt = $this->pdo->query("
+        SELECT 
+            p.program_id AS id,
+            p.program_name AS name,
+            c.name AS coach,
+            p.duration_weeks AS duration,
+            p.skill_level
+        FROM programs p
+        LEFT JOIN coaches c ON p.coach_id = c.coach_id
+    ");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Get single program by ID
+public function getProgramById($id) {
+    $stmt = $this->pdo->prepare("
+        SELECT 
+            p.program_id AS id,
+            p.program_name AS name,
+            p.description,
+            c.name AS coach,
+            c.contact,
+            p.duration_weeks AS duration,
+            p.skill_level
+        FROM programs p
+        LEFT JOIN coaches c ON p.coach_id = c.coach_id
+        WHERE p.program_id = ?
+    ");
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
     // Add new program
     public function addProgram($name, $description, $coach_id, $duration_weeks, $skill_level) {
         $stmt = $this->pdo->prepare("
@@ -33,14 +67,6 @@ class ProgramController {
         return $stmt->execute([$id]);
     }
 
-    // View all programs
-    public function getPrograms() {
-        $stmt = $this->pdo->query("
-            SELECT p.*, c.name AS coach_name
-            FROM programs p
-            LEFT JOIN coaches c ON p.coach_id = c.coach_id
-        ");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+  
 }
 ?>

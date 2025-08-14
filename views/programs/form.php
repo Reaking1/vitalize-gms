@@ -1,6 +1,6 @@
 <?php
-include __DIR__ . '/../layouts/header.php';
-include __DIR__ . '/../layouts/navbar.php';
+include __DIR__ . '/../layouts/layouts/header.php';
+include __DIR__ . '/../layouts/layouts/navbar.php';
 
 // $program: associative array with program data if editing, otherwise null
 // $message: success or error message
@@ -46,5 +46,5 @@ $isEdit = isset($program);
 </form>
 
 <?php
-include __DIR__ . '/../layouts/footer.php';
+include __DIR__ . '/../layouts/layouts/footer.php';
 ?>
