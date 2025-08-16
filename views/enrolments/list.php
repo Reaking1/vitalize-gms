@@ -3,7 +3,11 @@ include __DIR__ . '/../layouts/layouts/header.php';
 include __DIR__ . '/../layouts/layouts/navbar.php';
 
 // $enrolments: array of enrolment records passed from controller
+require_once __DIR__ . '/../../db.php';
+require_once __DIR__ . '/../../controllers/EnrolmentController.php';
 
+$controller = new EnrolmentController($pdo);
+$enrolments = $controller->getEnrolments();
 ?>
 
 <h2>Enrolments List</h2>

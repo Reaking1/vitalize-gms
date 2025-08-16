@@ -3,6 +3,16 @@ include __DIR__ . '/../layouts/layouts/header.php';
 include __DIR__ . '/../layouts/layouts/navbar.php';
 
 // $program: associative array with program data passed by controller
+require_once __DIR__ . '/../../controllers/ProgramController.php';
+require_once __DIR__ . '/../../db.php';
+
+$controller = new ProgramController($pdo);
+
+if (!isset($_GET['id'])) {
+    die("Program ID is required");
+}
+
+$program = $controller->getProgramById($_GET['id']);
 ?>
 
 <h2>Program Details: <?= htmlspecialchars($program['name'] ?? '') ?></h2>

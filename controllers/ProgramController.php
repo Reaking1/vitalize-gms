@@ -9,19 +9,20 @@ class ProgramController {
     }
 
     //get all programs
-    public function getPrograms() {
+public function getPrograms() {
     $stmt = $this->pdo->query("
         SELECT 
             p.program_id AS id,
             p.program_name AS name,
             c.name AS coach,
-            p.duration_weeks AS duration,
+            COALESCE(p.duration_weeks, 0) AS duration,  -- default to 0 if null
             p.skill_level
         FROM programs p
         LEFT JOIN coaches c ON p.coach_id = c.coach_id
     ");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 // Get single program by ID
 public function getProgramById($id) {

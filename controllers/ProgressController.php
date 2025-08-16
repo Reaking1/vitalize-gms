@@ -9,28 +9,50 @@ class ProgressController {
         $this->pdo = $pdo;
     }
 
-    // Update gymnast progress
-    public function updateProgress($gymnast_id, $program_id, $progress_percent, $notes) {
+    // Update gymnast progress using enrolment
+    public function updateProgress($enrolment_id, $progress_percentage, $notes) {
         $stmt = $this->pdo->prepare("
-            INSERT INTO progress (gymnast_id, program_id, progress_percent, notes, last_updated)
-            VALUES (?, ?, ?, ?, NOW())
+            INSERT INTO progress (enrolment_id, notes, progress_percentage)
+            VALUES (?, ?, ?)
             ON DUPLICATE KEY UPDATE
-                progress_percent = VALUES(progress_percent),
-                notes = VALUES(notes),
-                last_updated = NOW()
+                progress_percentage = VALUES(progress_percentage),
+                notes = VALUES(notes)
         ");
-        return $stmt->execute([$gymnast_id, $program_id, $progress_percent, $notes]);
+        return $stmt->execute([$enrolment_id, $notes, $progress_percentage]);
     }
 
-    // Get gymnast progress
-    public function getProgress($gymnast_id, $program_id) {
-        $stmt = $this->pdo->prepare("
-            SELECT progress_percent, notes, last_updated
-            FROM progress
-            WHERE gymnast_id = ? AND program_id = ?
-        ");
-        $stmt->execute([$gymnast_id, $program_id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    // Get progress for all gymnasts
+    public function getAllProgress($program_id = null, $gymnast_id = null) {
+        $sql = "
+            SELECT g.name AS gymnast_name,
+                   p.program_name,
+                   pr.notes,
+                   pr.progress_percentage,
+                   pr.progress_id,
+                   pr.last_updated
+            FROM progress pr
+            JOIN enrolments e ON pr.enrolment_id = e.enrolment_id
+            JOIN gymnasts g ON e.gymnast_id = g.gymnast_id
+            JOIN programs p ON e.program_id = p.program_id
+            WHERE 1
+        ";
+
+        $params = [];
+        if ($program_id) {
+            $sql .= " AND p.program_id = ?";
+            $params[] = $program_id;
+        }
+        if ($gymnast_id) {
+            $sql .= " AND g.gymnast_id = ?";
+            $params[] = $gymnast_id;
+        }
+
+        $sql .= " ORDER BY pr.last_updated DESC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
+
 ?>

@@ -2,7 +2,19 @@
 include __DIR__ . '/../layouts/layouts/header.php';
 include __DIR__ . '/../layouts/layouts/navbar.php';
 
+
+require_once __DIR__ . '/../../controllers/ProgramController.php';
+require_once __DIR__ . '/../../db.php';
+
 // $programs: array of program records passed from controller
+$controller = new ProgramController($pdo);
+
+// Handle filters
+$search = $_GET['search'] ?? null;
+$skill_level = $_GET['skill_level'] ?? null;
+
+// For now, keep it simple (later you can implement search in controller)
+$programs = $controller->getPrograms();
 ?>
 
 <h2>Gymnastics Programs</h2>

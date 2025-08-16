@@ -30,13 +30,14 @@ include __DIR__ . '/../layouts/layouts/navbar.php';
                     <td><?= htmlspecialchars($progress['gymnast_name']) ?></td>
                     <td><?= nl2br(htmlspecialchars($progress['note'])) ?></td>
                     <td>
-                        <div style="background:#eee; width: 150px; border-radius: 5px; overflow: hidden;">
-                            <div style="width: <?= (int)$progress['completion_percentage'] ?>%; background: #4caf50; color: white; text-align: center;">
-                                <?= (int)$progress['completion_percentage'] ?>%
-                            </div>
-                        </div>
-                    </td>
-                    <td><?= htmlspecialchars($progress['date'] ?? '') ?></td>
+    <div style="background:#eee; width: 150px; border-radius: 5px; overflow: hidden;">
+        <div style="width: <?= (int)$progress['progress_percentage'] ?>%; background: #4caf50; color: white; text-align: center;">
+            <?= (int)$progress['progress_percentage'] ?>%
+        </div>
+    </div>
+</td>
+<td><?= htmlspecialchars($progress['last_updated'] ?? '') ?></td>
+
                 </tr>
             <?php endforeach; ?>
         </tbody>
